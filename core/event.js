@@ -1,4 +1,5 @@
 import { cConsole } from "./utils.js";
+import { report } from './report.js'
 
 export const initHashEvent = (fs, options) => {
   // 一块家
@@ -8,6 +9,9 @@ export const initHashEvent = (fs, options) => {
 }
 
 export const setVueRouterEvent = (router, options, cb) => {
+  const params = JSON.parse(localStorage.getItem("fspace-tracker")) || null;
+  if (!params) return;
+
   router.beforeEach((to, from, next) => {
     const timestamp = new Date().getTime();
     const pretimestamp = localStorage.getItem('pretimestamp') || timestamp
@@ -24,8 +28,13 @@ export const setVueRouterEvent = (router, options, cb) => {
       to,
       from,
       secound
-    },(request) => {
-      console.log(request)
+    },(data) => {
+      const { url, method } = params;
+      const reportData = {
+        ...params,
+        ...data,
+      };
+      report(url, method, reportData);
     })
     next();
   });

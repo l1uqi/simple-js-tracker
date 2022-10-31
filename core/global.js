@@ -1,67 +1,28 @@
 import { setVueGlobDirectives } from "./plugin/index.js";
 import { setVueRouterEvent } from "./event.js";
-import { cConsole } from "./utils.js";
-import { defaultOptions } from './type.js'
+import { cConsole, getheatMap } from "./utils.js";
+import { report } from "./report.js";
 
-const filterParams = function(data) {
-  Object.keys(data).forEach(key => {
-    if(defaultOptions[key] !== undefined) {
-      delete data[key];
-    }
-  })
-  return data;
-}
-
-const xmlHttpRequest = function (url, data) {
-  const params = filterParams(data);
-  const xhr = new XMLHttpRequest();
-  xhr.open("POST", url, false);
-  xhr.setRequestHeader("Content-Type", "application/json");
-  xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
-  xhr.send(JSON.stringify(params));
-};
-
-const trackingToPageParams = (id) => {
-  id = id.toString();
-  if (!id && id.length < 2) return {};
-  const page_type = id.slice(0, 1);
-  const page_id = id.slice(1);
-  return {
-    page_type,
-    page_id,
-  };
-};
-
-const getheatMap = (x, y) => {
-  return `${x}.${y}`;
-};
-
-function extend(target, source) {
-  for (var obj in source) {
-    if (target[obj]) {
-      target[obj] = source[obj];
-    }
-  }
-  return target;
-}
-
-export const dvRequest = function (options) {
+export const dvReport = function (options) {
   const params = JSON.parse(localStorage.getItem("fspace-tracker")) || null;
   if (!params) return;
   const { url, enableHeatMap } = params;
   let position = "";
-  if(enableHeatMap && options.x && options.y) {
+  if (enableHeatMap && options.x && options.y) {
     position = getheatMap(options.x, options.y);
-    delete options.x
-    delete options.y
+    delete options.x;
+    delete options.y;
   }
   const defaultData = {
     ...params,
     ...options,
     position,
-    ...trackingToPageParams(options.tracking),
   };
-  xmlHttpRequest(url, defaultData);
+  cConsole({
+    text: defaultData,
+    debug: params.debug
+  });
+  report(url, params.method, defaultData);
 };
 
 export function initGlobalFun(FSTracker) {
@@ -78,9 +39,9 @@ export function initGlobalFun(FSTracker) {
 
     cConsole({
       text: data,
-      debug: this._options.debug
+      debug: this._options.debug,
     });
-    xmlHttpRequest(this._options.url, defaultData);
+    report(this._options.url, this._options.method, defaultData);
   };
 
   FSTracker.prototype.initDirectives = function (app) {

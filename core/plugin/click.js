@@ -1,9 +1,9 @@
-import { dvRequest } from "../global.js";
+import { dvReport } from "../global.js";
 
 export default class Click {
   add(entry) {
     entry.el.addEventListener("click", function (e) {
-      dvRequest({
+      dvReport({
         ...entry.binding.value,
         x: e.clientX,
         y: e.clientY,

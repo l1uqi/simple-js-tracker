@@ -3,11 +3,13 @@ export const defaultOptions = {
 
   url: "", // 埋点请求后端接口
 
+  method: "POST",
+
   config: null,
 
   enableDecorator: false, // 开启装饰器
 
   enableHeatMap: false,
 
-  enableHashTracker: false,
+  enableHashTracker: false
 };

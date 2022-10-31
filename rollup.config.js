@@ -15,6 +15,6 @@ export default {
       // 过滤文件
       exclude: "node_modules/**",
     }),
-    uglify()
+    // uglify()
   ],
 };

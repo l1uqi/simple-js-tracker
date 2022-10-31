@@ -1,10 +1,10 @@
-import { dvRequest } from "../global.js";
+import { dvReport } from "../global.js";
 
 export default class Keyup {
   add(entry) {
     entry.el.addEventListener("keyup", function (e) {
       if (e.keyCode === 13) {
-        dvRequest(entry.binding.value);
+        dvReport(entry.binding.value);
       }
     });
   }
