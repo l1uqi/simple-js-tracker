@@ -1,3 +1,3 @@
-import FSTracker from './instance.js';
+import SimpleJsTracker from './instance.js';
 
-export default FSTracker;
+export default SimpleJsTracker;

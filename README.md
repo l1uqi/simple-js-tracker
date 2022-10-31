@@ -2,27 +2,27 @@
 
 简单易用前端埋点、用户行为数据采集 SDK
 
-## install
+## 安装
 
 ---
 
 ```
-npm install fspacefe-tracker
+npm install simple-js-tracker
 
-yarn add fspacefe-tracker
+yarn add simple-js-tracker
 
 // cdn
-<script src="https://cdn.jsdelivr.net/npm/fspacefe-tracker@0.0.9/lib/index.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-js-tracker@0.0.2/lib/index.min.js"></script>
 ```
 
-## init
+## 初始化
 
 ---
 
 ```js
-import FSTracker from "fspacefe-tracker";
+import SimpleJsTracker from "simple-js-tracker";
 
-const fst = new FSTracker({
+const fst = new SimpleJsTracker({
   debug: true,
   url: "", // 服务地址
   enableHeatMap: true, // 开启热力图
@@ -33,7 +33,7 @@ const fst = new FSTracker({
 });
 ```
 
-## Options
+## 参数
 
 ---
 
@@ -44,7 +44,7 @@ const fst = new FSTracker({
 | url           | 是   | ''     | string | 请求地址                         |
 | enableHeatMap | 否   | false  | bool   | 开启坐标上传 position            |
 
-## Methods
+## 方法
 
 ---
 
@@ -55,7 +55,7 @@ const fst = new FSTracker({
 | initDirectives         | 初始化 vue2 指令      | Vue        |
 | registerVueRouterEvent | 初始化 VueRouter 监听 | VueRouter, callback({to, from , secound,...}, callback)  |
 
-## Directives
+## 指令
 
 ---
 
@@ -78,7 +78,7 @@ const fst = new FSTracker({
 <div v-track:keyup="{'event_type': 10, ...}">搜索</div>
 ```
 
-## demo
+## 例子
 
 ---
 
@@ -117,7 +117,7 @@ fst.registerVueRouterEvent(router, (res, request) => {
 });
 ```
 
-## build
+## 打包
 
 ---
 
