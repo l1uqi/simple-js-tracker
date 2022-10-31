@@ -1,0 +1,25 @@
+{
+  "name": "simple-js-tracker",
+  "version": "0.0.1",
+  "description": "简单易用前端埋点",
+  "type": "module",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c"
+  },
+  "author": "liuqi",
+  "jsdelivr": "lib/index.js",
+  "devDependencies": {
+    "@babel/core": "^7.19.6",
+    "@babel/preset-env": "^7.19.4",
+    "rollup": "^3.2.3",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-uglify": "^6.0.4"
+  },
+  "files": [
+    "lib/",
+    "package.json",
+    "README.md"
+  ]
+}
