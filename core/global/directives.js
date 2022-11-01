@@ -1,9 +1,35 @@
-import Click from "./click.js";
-import Keyup from "./keyup.js";
-import Exposure from "./exposure.js";
+import { autoSendTracker } from "../global/http.js";
+
+class Click {
+  add(entry) {
+    entry.el.addEventListener("click", function (e) {
+      console.log(entry.binding.value);
+      autoSendTracker({
+        ...entry.binding.value,
+        x: e.clientX,
+        y: e.clientY,
+      });
+    });
+  }
+  remove(entry) {
+    entry.el.removeEventListener("click", () => {});
+  }
+}
+
+class Keyup {
+  add(entry) {
+    entry.el.addEventListener("keyup", function (e) {
+      if (e.keyCode === 13) {
+        autoSendTracker(entry.binding.value);
+      }
+    });
+  }
+  remove(entry) {
+    entry.el.removeEventListener("keyup", () => {});
+  }
+}
 
 // 实例化曝光和点击
-const exp = new Exposure();
 const cli = new Click();
 const keyup = new Keyup();
 
@@ -19,10 +45,6 @@ const track = {
 
         case "keyup":
           keyup.add({ el, binding });
-          break;
-
-        case "exposure":
-          exp.add({ el });
           break;
       }
     });

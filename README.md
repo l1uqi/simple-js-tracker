@@ -41,7 +41,7 @@ const sjt = new SimpleJsTracker({
 | debug         | 否   | false  | bool   | 开启调试模式                     |
 | config        | 否   | object | {}     | 你的配置文件, 会在上报时传给后端 |
 | url           | 是   | ''     | string | 请求地址                         |
-| method        | 否   | img    | string | 请求方式 GET、POST、SEND_BEACON   |
+| method        | 否   | img    | string | 请求方式 GET、POST、SEND_BEACON  |
 | enableHeatMap | 否   | false  | bool   | 开启坐标上传 position            |
 
 ### 方法
@@ -61,8 +61,8 @@ const sjt = new SimpleJsTracker({
 
 | 方法名        | 说明     | 参数 |
 | ------------- | -------- | ---- |
-| v-track:click | 点击事件 | ...  |
-| v-track:keyup | 键盘事件 | ...  |
+| v-track:click | 点击事件 | {}   |
+| v-track:keyup | 键盘事件 | {}   |
 
 ```html
 // 点击
@@ -77,7 +77,7 @@ const sjt = new SimpleJsTracker({
 ```js
 import SimpleJsTracker from "simple-js-tracker";
 
-const sjt = new FSTracker({
+const sjt = new SimpleJsTracker({
   debug: true,
   url: "", // 服务地址
   enableHeatMap: true, // 开启热力图
@@ -101,7 +101,7 @@ sjt.initDirectives(Vue);
 sjt.registerVueRouterEvent(router, (res, report) => {
   const { to, from, secound } = res;
   // to, from , secound
-  // 上传对象
+  // 自定义上传对象
   const reportParams = {
     a: '魔兽老了',
     b: '记忆中的口袋里'

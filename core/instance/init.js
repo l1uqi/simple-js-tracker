@@ -1,4 +1,4 @@
-import { defaultOptions } from "../type.js";
+import { defaultOptions } from "../types/index.js";
 import { initHashEvent } from './event.js';
 import { setDecorator } from '../decorator.js'
 

@@ -1,4 +1,4 @@
-import { defaultOptions } from "../type.js";
+import { defaultOptions } from "../types/index.js";
 
 export const cConsole = function (params) {
   const { text, type = "log", debug = false } = params;

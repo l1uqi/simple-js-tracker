@@ -1,11 +1,8 @@
 import { initMixin } from "./init.js";
-import { initGlobalFun } from '../global.js';
+import { initGlobalFun } from '../global/index.js';
 
-/**
- * 初始化埋点sdk
- * @param {*} options
- */
 function FSTracker(options) {
+  // 初始化sdk
   this._init(options);
 }
 

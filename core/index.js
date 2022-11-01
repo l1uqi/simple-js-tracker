@@ -1,3 +1,3 @@
-import SimpleJsTracker from './instance/index';
+import SimpleJsTracker from './instance/index.js';
 
 export default SimpleJsTracker;
