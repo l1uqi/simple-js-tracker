@@ -1,6 +1,6 @@
 import { setVueGlobDirectives } from "./plugin/index.js";
-import { setVueRouterEvent } from "./event.js";
-import { cConsole, getheatMap } from "./utils.js";
+import { setVueRouterEvent } from "./instance/event.js";
+import { cConsole, getheatMap } from "./utils/index.js";
 import { report } from "./report.js";
 
 export const dvReport = function (options) {

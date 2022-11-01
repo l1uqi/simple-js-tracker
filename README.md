@@ -41,7 +41,7 @@ const sjt = new SimpleJsTracker({
 | debug         | 否   | false  | bool   | 开启调试模式                     |
 | config        | 否   | object | {}     | 你的配置文件, 会在上报时传给后端 |
 | url           | 是   | ''     | string | 请求地址                         |
-| method        | 否   | img    | string | 请求方式 GET、POST、sendBeacon   |
+| method        | 否   | img    | string | 请求方式 GET、POST、SEND_BEACON   |
 | enableHeatMap | 否   | false  | bool   | 开启坐标上传 position            |
 
 ### 方法
@@ -122,5 +122,8 @@ npm publish
 ### 待办
 
 - [x] 多种上报方式
+- [ ] Vue3
 - [ ] 装饰器
 - [ ] hash 页面监听实现
+- [ ] 全局上报
+- [ ] 异常捕获

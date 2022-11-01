@@ -1,5 +1,5 @@
 import { initMixin } from "./init.js";
-import { initGlobalFun } from './global.js';
+import { initGlobalFun } from '../global.js';
 
 /**
  * 初始化埋点sdk

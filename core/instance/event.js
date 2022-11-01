@@ -1,5 +1,5 @@
-import { cConsole } from "./utils.js";
-import { report } from './report.js'
+import { cConsole } from "../utils/index.js";
+import { report } from '../report.js'
 
 export const initHashEvent = (fs, options) => {
   // 一块家
@@ -34,7 +34,7 @@ export const setVueRouterEvent = (router, options, cb) => {
         ...params,
         ...data,
       };
-      report(url, method, reportData);
+      // report(url, method, reportData);
     })
     next();
   });

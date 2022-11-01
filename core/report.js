@@ -1,6 +1,6 @@
-import { filterParams, urlIsLong, cConsole } from "./utils.js";
+import { filterParams, urlIsLong, cConsole } from "./utils/index.js";
 
-function xmlHttpRequest(url, params) {
+function xmlRequest(url, params) {
   const xhr = new XMLHttpRequest();
   xhr.open("POST", url, false);
   xhr.setRequestHeader("Content-Type", "application/json");
@@ -23,10 +23,10 @@ export const report = function (url, method, data) {
   const str = Object.entries(data)
     .map(([key, value]) => `${key}=${encodeURI(value)}`)
     .join("&");
-  if (navigator.sendBeacon && method === "sendBeacon") {
+  if (navigator.sendBeacon && method === "SEND_BEACON") {
     sendBeacon(url, params);
   } else if (method === "POST" || urlIsLong(str)) {
-    xmlHttpRequest(url, params);
+    xmlRequest(url, params);
   } else {
     const img = new Image();
     img.src = `${url}?${str}`;

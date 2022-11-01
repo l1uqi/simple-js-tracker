@@ -1,6 +1,6 @@
-import { defaultOptions } from "./type.js";
+import { defaultOptions } from "../type.js";
 import { initHashEvent } from './event.js';
-import { setDecorator } from './decorator.js'
+import { setDecorator } from '../decorator.js'
 
 function _setConfig(fs, options) {
   const { config } = options;
