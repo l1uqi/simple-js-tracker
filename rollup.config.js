@@ -1,6 +1,7 @@
 import babel from 'rollup-plugin-babel'
 import { uglify } from 'rollup-plugin-uglify'
 import rollupTypescript from 'rollup-plugin-typescript2'
+import json from "@rollup/plugin-json"
 
 export default {
   input: "core/index.ts", // 要打包的文件(打包入口文件)
@@ -27,6 +28,7 @@ export default {
       // 过滤文件
       exclude: "node_modules/**",
     }),
+    json()
     // uglify()
   ],
 };

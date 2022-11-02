@@ -1,3 +1,4 @@
+import { LocalStoreEnum } from "../enum";
 import { ICustomOptions } from "../types/index";
 import {
   filterParams,
@@ -28,8 +29,9 @@ const report = function (url: string, method: string, data: ICustomOptions) {
   const params = filterParams(data);
   const str = Object.entries(data)
     .map(
-      ([key, value]) =>
+      ([key, value]) => {
         `${key}=${typeof value === "string" ? encodeURI(value) : value}`
+      }
     )
     .join("&");
   if (navigator.sendBeacon !== undefined && method === "SEND_BEACON") {
@@ -56,7 +58,7 @@ export const sendTracker = (options, data) => {
 };
 
 export const autoSendTracker = (options: ICustomOptions) => {
-  const params = getCache("options");
+  const params = getCache(LocalStoreEnum.OPSIONS);
   if (!params) return;
   const { url, enableHeatMap } = params;
   let position = "";

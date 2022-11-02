@@ -1,6 +1,6 @@
 export interface IConcosle { 
-  text: string,
+  text: string | Array<Object> | Object,
   type?: string, 
   debug?: boolean,
-  [key: string]: string | boolean | undefined
+  [key: string]: string | boolean | Array<Object> | Object | undefined
 }

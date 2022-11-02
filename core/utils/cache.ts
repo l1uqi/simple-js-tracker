@@ -1,4 +1,4 @@
-const basicKey = "sjt_";
+const basicKey = "SIMPLE_JS_TRACKER";
 
 const hasItem = (key) => {
   const _key = basicKey + key;

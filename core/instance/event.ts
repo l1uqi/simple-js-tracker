@@ -1,5 +1,6 @@
-import { cConsole, setCache, getCache } from "../utils/index.js";
+import { cConsole, setCache, getCache, getPagePerformance } from "../utils/index.js";
 import { autoSendTracker } from "../global/http.js";
+import { LocalStoreEnum } from "../enum/localstore.js";
 
 export const initHashEvent = (fs, options) => {
   // 一块家
@@ -9,14 +10,14 @@ export const initHashEvent = (fs, options) => {
 };
 
 export const setVueRouterEvent = (router, options, cb) => {
-  const params = getCache('options');
+  const params = getCache(LocalStoreEnum.OPSIONS);
 
   if (!params) return;
 
   router.beforeEach((to, from, next) => {
     const timestamp = new Date().getTime();
-    const pretimestamp = getCache("pretimestamp") || timestamp;
-    setCache("pretimestamp", timestamp);
+    const pretimestamp = getCache(LocalStoreEnum.PRE_TIMESTAMP) || timestamp;
+    setCache(LocalStoreEnum.PRE_TIMESTAMP, timestamp);
     let secound = 0;
     if (timestamp != pretimestamp) {
       secound = (timestamp - pretimestamp) / 1000;
@@ -35,6 +36,7 @@ export const setVueRouterEvent = (router, options, cb) => {
         autoSendTracker(reportData);
       }
     );
+    
     next();
   });
 };

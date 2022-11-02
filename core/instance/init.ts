@@ -1,30 +1,28 @@
 import { defaultOptions } from "../config";
+import { LocalStoreEnum } from "../enum";
 import { IDefaultOptions } from "../types/index";
-import { setCache } from '../utils/index';
-import { initHashEvent } from './event';
+import { setCache, initParamsConsole } from "../utils/index";
+import { initHashEvent } from "./event";
 
 function _setConfig(fs, options: IDefaultOptions) {
   const { config } = options;
-  delete options['config']
-  if(typeof config === 'object' && config != null) {
+  initParamsConsole(options);
+  if (typeof config === "object" && config != null) {
     options = Object.assign(config, defaultOptions, options);
   }
-  
+  delete options["config"];
   fs._options = options;
-  setCache('options', options);
+  setCache(LocalStoreEnum.OPSIONS, options);
 }
-
 
 function _initEvent(fs, options) {
   // 开始hash router 监听
-  if(options.enableHashTracker) {
-    initHashEvent(fs, options)
+  if (options.enableHashTracker) {
+    initHashEvent(fs, options);
   }
 }
 
-function _initDecorator() {
-
-}
+function _initDecorator() {}
 
 export function initMixin(FSTracker) {
   FSTracker.prototype._init = function (options) {

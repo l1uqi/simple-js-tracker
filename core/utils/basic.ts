@@ -1,13 +1,5 @@
-import { IDefaultOptions, IConcosle, ICustomOptions } from "../types/index";
+import { IDefaultOptions, ICustomOptions } from "../types/index";
 import { defaultOptions } from '../config'
-
-export const cConsole = function (params: IConcosle) {
-  const { text, type = "log", debug = false } = params;
-  if(isValidKey(type, console)) {
-    const func: any = console[type];
-    debug && func(text);
-  }
-};
 
 export const filterParams = function (data: ICustomOptions) {
   Object.keys(data).forEach((key: string) => {
@@ -17,10 +9,6 @@ export const filterParams = function (data: ICustomOptions) {
   });
   return data;
 };
-
-export function isValidKey(key: string | number | symbol, object: object): key is keyof typeof object {
-  return key in object;
-}
 
 export const getheatMap = (x: number, y: number) => {
   return `${x}.${y}`;
@@ -75,4 +63,49 @@ export const compareVersion = (version1: string, version2: string) => {
     return 0
   }
   return 0
+}
+
+export const getPagePerformance = () => {
+  let times: any = {};
+  let t: any = window.performance.timing;
+
+  // 优先使用 navigation v2  https://www.w3.org/TR/navigation-timing-2/
+  if (typeof window.PerformanceNavigationTiming === "function") {
+    t = window.performance.getEntriesByType("navigation")[0] || t;
+  }
+   //重定向时间
+   times.redirectTime = t.redirectEnd - t.redirectStart;
+  
+   //dns查询耗时
+   times.dnsTime = t.domainLookupEnd - t.domainLookupStart;
+   
+   //TTFB 读取页面第一个字节的时间
+   times.ttfbTime = t.responseStart - t.navigationStart;
+   
+   //DNS 缓存时间
+   times.appcacheTime = t.domainLookupStart - t.fetchStart;
+   
+   //卸载页面的时间
+   times.unloadTime = t.unloadEventEnd - t.unloadEventStart;
+   
+   //tcp连接耗时
+   times.tcpTime = t.connectEnd - t.connectStart;
+   
+   //request请求耗时
+   times.reqTime = t.responseEnd - t.responseStart;
+   
+   //解析dom树耗时
+   times.analysisTime = t.domComplete - t.domInteractive;
+   
+   //白屏时间
+   times.blankTime =  (t.domInteractive || t.domLoading)  - t.fetchStart;
+   
+   //domReadyTime
+   times.domReadyTime = t.domContentLoadedEventEnd - t.fetchStart;
+  return times;
+};
+
+
+export const sleep = (ms) => {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }

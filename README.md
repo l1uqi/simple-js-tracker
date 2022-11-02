@@ -95,7 +95,7 @@ sjt.setConfig(options);
 // 自定义上传
 sjt.sendTracker(params);
 
-// 初始化自定义vue2指令
+// 初始化自定义vue2/3指令
 sjt.initDirectives(Vue);
 
 // 初始化 VueRouter 监听

@@ -3,11 +3,12 @@ import { setVueRouterEvent } from "../instance/event";
 import { sendTracker } from "./http";
 import { compareVersion, setCache } from "../utils/index";
 import { setTrackV3Directives } from "./directives_v3";
+import { LocalStoreEnum } from "../enum";
 
 export function initGlobalFun(FSTracker) {
   FSTracker.prototype.setConfig = function (options) {
     options = Object.assign({}, this._options, options);
-    setCache("options", options);
+    setCache(LocalStoreEnum.OPSIONS, options);
   };
 
   FSTracker.prototype.sendTracker = function (data = {}) {
