@@ -1,3 +1,5 @@
-import { IDefaultOptions, ISimpleJsTracker } from "../types/index";
-declare function SimpleJsTracker(this: ISimpleJsTracker, options: IDefaultOptions): ISimpleJsTracker;
+import { IDefaultOptions } from "../types/index";
+declare class SimpleJsTracker {
+    constructor(options: IDefaultOptions);
+}
 export default SimpleJsTracker;
