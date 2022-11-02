@@ -1,5 +1,5 @@
 import { setTrackV2Directives } from "./directives_v2";
-import { setVueRouterEvent } from "../instance/event";
+import { initErrorEvent, setVueRouterEvent } from "../instance/event";
 import { sendTracker } from "./http";
 import { compareVersion, setCache } from "../utils/index";
 import { setTrackV3Directives } from "./directives_v3";
@@ -25,5 +25,10 @@ export function initGlobalFun(FSTracker) {
 
   FSTracker.prototype.registerVueRouterEvent = function (router, cb) {
     setVueRouterEvent(router, this._options, cb);
+  };
+
+
+  FSTracker.prototype.registerErrorEvent = function (cb) {
+    initErrorEvent(cb);
   };
 }

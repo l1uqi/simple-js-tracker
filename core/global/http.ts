@@ -82,3 +82,19 @@ export const autoSendTracker = (options: ICustomOptions) => {
   });
   report(url, params.method, defaultData);
 };
+
+
+export const autoSendErrorTracker = (options: ICustomOptions) => {
+  const params = getCache(LocalStoreEnum.OPSIONS);
+  if (!params) return;
+  const { url, enableHeatMap } = params;
+  const defaultData = {
+    ...params,
+    ...options
+  };
+  cConsole({
+    text: defaultData,
+    debug: params.debug,
+  });
+  report(url, params.method, defaultData);
+};

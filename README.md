@@ -8,6 +8,7 @@
 - 🚀 支持 Vue2/Vue3
 - 💪 提供 Vue 指令方式调用
 - 💪 支持 TypeScript
+- 💪 全局异常捕获
 
 ## 安装
 
@@ -54,6 +55,7 @@ const sjt = new SimpleJsTracker({
 | sendTracker            | 手动上报              | {自定义}                                                |
 | initDirectives         | 初始化 vue2 指令      | Vue                                                     |
 | registerVueRouterEvent | 初始化 VueRouter 监听 | VueRouter, callback({to, from , secound,...}, callback) |
+| registerErrorEvent | 全局异常报错 | vm: Vue对象, errorCallback((errorMsg, pageInfo) => {}) 异常回调 |
 
 ## 指令
 
@@ -72,6 +74,39 @@ const sjt = new SimpleJsTracker({
 
 // 键盘
 <div v-track:keyup="{'event_type': 10, ...}">搜索</div>
+```
+
+
+## 打包
+
+```
+npm build
+
+npm publish
+```
+
+## 异常
+```js
+const sjt = new SimpleJsTracker({
+  debug: true,
+  url: "", // 服务地址
+  enableHeatMap: true, // 开启热力图
+  enableHashTracker: true,
+  config: {
+    ...
+  }
+});
+
+sjt.registerErrorEvent({
+  vm: Vue,// vue实例 vue环境下可传
+  errorCallback: (error) => {
+    // error : { 
+    //   errorMsg, 异常信息
+    //   pageInfo 当前页面信息
+    // }
+    console.log(error)
+  }
+})
 ```
 
 ## 例子
@@ -120,15 +155,9 @@ sjt.registerVueRouterEvent(router, (res, report) => {
     request(fromParams);
   }
 });
-```
-
-## 打包
 
 ```
-npm build
 
-npm publish
-```
 
 ## 待办
 

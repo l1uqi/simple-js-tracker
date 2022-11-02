@@ -2,7 +2,7 @@ import { defaultOptions } from "../config";
 import { LocalStoreEnum } from "../enum";
 import { IDefaultOptions } from "../types/index";
 import { setCache, initParamsConsole } from "../utils/index";
-import { initHashEvent } from "./event";
+import { initErrorEvent, initHashEvent } from "./event";
 
 function _setConfig(fs, options: IDefaultOptions) {
   const { config } = options;
@@ -20,6 +20,10 @@ function _initEvent(fs, options) {
   if (options.enableHashTracker) {
     initHashEvent(fs, options);
   }
+}
+
+function _initError(options) {
+  initErrorEvent(options)
 }
 
 function _initDecorator() {}
