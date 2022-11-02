@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "lib": ["es2017", "dom", "ScriptHost", "es2015.promise"],
+    "allowJs": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "declaration": true
+  },
+  "include": [
+    "core"
+  ]
+}

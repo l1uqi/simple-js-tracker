@@ -1,13 +1,17 @@
-import { defaultOptions } from "../types/index.js";
-import { initHashEvent } from './event.js';
-import { setDecorator } from '../decorator.js'
+import { defaultOptions } from "../config";
+import { IDefaultOptions } from "../types/index";
+import { setCache } from '../utils/index';
+import { initHashEvent } from './event';
 
-function _setConfig(fs, options) {
+function _setConfig(fs, options: IDefaultOptions) {
   const { config } = options;
-  delete options.config
-  options = Object.assign(config, defaultOptions, options);
+  delete options['config']
+  if(typeof config === 'object' && config != null) {
+    options = Object.assign(config, defaultOptions, options);
+  }
+  
   fs._options = options;
-  localStorage.setItem('fspace-tracker',JSON.stringify(options))
+  setCache('options', options);
 }
 
 
@@ -19,7 +23,7 @@ function _initEvent(fs, options) {
 }
 
 function _initDecorator() {
-  setDecorator();
+
 }
 
 export function initMixin(FSTracker) {

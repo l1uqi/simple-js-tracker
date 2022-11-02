@@ -1,6 +1,6 @@
 {
   "name": "simple-js-tracker",
-  "version": "0.0.3",
+  "version": "0.0.6",
   "description": "简单易用前端埋点",
   "type": "module",
   "main": "lib/index.js",
@@ -13,13 +13,21 @@
   "devDependencies": {
     "@babel/core": "^7.19.6",
     "@babel/preset-env": "^7.19.4",
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
+    "@typescript-eslint/parser": "^5.42.0",
+    "eslint": "^8.26.0",
     "rollup": "^3.2.3",
     "rollup-plugin-babel": "^4.4.0",
-    "rollup-plugin-uglify": "^6.0.4"
+    "rollup-plugin-uglify": "^6.0.4",
+    "typescript": "^4.8.4"
   },
   "files": [
     "lib/",
+    "core/",
     "package.json",
     "README.md"
-  ]
+  ],
+  "dependencies": {
+    "rollup-plugin-typescript2": "^0.34.1"
+  }
 }

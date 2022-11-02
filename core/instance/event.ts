@@ -1,4 +1,4 @@
-import { cConsole } from "../utils/index.js";
+import { cConsole, setCache, getCache } from "../utils/index.js";
 import { autoSendTracker } from "../global/http.js";
 
 export const initHashEvent = (fs, options) => {
@@ -9,14 +9,15 @@ export const initHashEvent = (fs, options) => {
 };
 
 export const setVueRouterEvent = (router, options, cb) => {
-  const params = JSON.parse(localStorage.getItem("fspace-tracker")) || null;
+  const params = getCache('options');
+
   if (!params) return;
 
   router.beforeEach((to, from, next) => {
     const timestamp = new Date().getTime();
-    const pretimestamp = localStorage.getItem("pretimestamp") || timestamp;
-    localStorage.setItem("pretimestamp", timestamp);
-    let secound = "";
+    const pretimestamp = getCache("pretimestamp") || timestamp;
+    setCache("pretimestamp", timestamp);
+    let secound = 0;
     if (timestamp != pretimestamp) {
       secound = (timestamp - pretimestamp) / 1000;
       cConsole({

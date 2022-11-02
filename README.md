@@ -2,23 +2,25 @@
 
 简单易用前端埋点、用户行为数据采集 SDK
 
-### 特性
+## 特性
 
-- 支持 Vue2 Vue3
-- 提供 Vue 指令方式调用
+- 🚀 支持上报参数支持自定义， 上传方式多样
+- 🚀 支持 Vue2/Vue3
+- 💪 提供 Vue 指令方式调用
+- 💪 支持 TypeScript
 
-### 安装
+## 安装
 
 ```
 npm install simple-js-tracker
 
 yarn add simple-js-tracker
 
-// cdn
-<script src="https://cdn.jsdelivr.net/npm/simple-js-tracker@0.0.2/lib/index.min.js"></script>
+// cdn 引用
+<script src="https://cdn.jsdelivr.net/npm/simple-js-tracker@0.0.6/lib/index.min.js"></script>
 ```
 
-### 初始化
+## 初始化
 
 ```js
 import SimpleJsTracker from "simple-js-tracker";
@@ -34,7 +36,7 @@ const sjt = new SimpleJsTracker({
 });
 ```
 
-### 参数
+## 参数
 
 | 参数          | 必填 | 默认值 | 类型   |                                  |
 | ------------- | ---- | ------ | ------ | -------------------------------- |
@@ -44,7 +46,7 @@ const sjt = new SimpleJsTracker({
 | method        | 否   | img    | string | 请求方式 GET、POST、SEND_BEACON  |
 | enableHeatMap | 否   | false  | bool   | 开启坐标上传 position            |
 
-### 方法
+## 方法
 
 | 方法名                 | 说明                  | 参数                                                    |
 | ---------------------- | --------------------- | ------------------------------------------------------- |
@@ -53,11 +55,11 @@ const sjt = new SimpleJsTracker({
 | initDirectives         | 初始化 vue2 指令      | Vue                                                     |
 | registerVueRouterEvent | 初始化 VueRouter 监听 | VueRouter, callback({to, from , secound,...}, callback) |
 
-### 指令
+## 指令
 
 指令需要初始化, 且指令会自动上报
 
-#### Vue2.0
+### Vue2.0
 
 | 方法名        | 说明     | 参数 |
 | ------------- | -------- | ---- |
@@ -72,7 +74,7 @@ const sjt = new SimpleJsTracker({
 <div v-track:keyup="{'event_type': 10, ...}">搜索</div>
 ```
 
-### 例子
+## 例子
 
 ```js
 import SimpleJsTracker from "simple-js-tracker";
@@ -99,19 +101,28 @@ sjt.initDirectives(Vue);
 // 初始化 VueRouter 监听
 // 页面跳转监听， 上报的参数让用户自行提供 report
 sjt.registerVueRouterEvent(router, (res, report) => {
-  const { to, from, secound } = res;
-  // to, from , secound
-  // 自定义上传对象
-  const reportParams = {
-    a: '魔兽老了',
-    b: '记忆中的口袋里'
-  };
-  // 自定义参数上报
-  report(reportParams);
+   const { to, from, secound } = res;
+   // 页面进入
+  if(to.meta.tracking) {
+    const fromParams = {
+      'event_type': 5,
+      ...to.meta.tracking,
+    }
+    
+    request(fromParams);
+  }
+  // 页面离开
+  if(from.meta.tracking) {
+    const fromParams = {
+      'event_type': 6,
+      ...from.meta.tracking,
+    }
+    request(fromParams);
+  }
 });
 ```
 
-### 打包
+## 打包
 
 ```
 npm build
@@ -119,10 +130,10 @@ npm build
 npm publish
 ```
 
-### 待办
+## 待办
 
 - [x] 多种上报方式
-- [ ] Vue3
+- [x] Vue3
 - [ ] 装饰器
 - [ ] hash 页面监听实现
 - [ ] 全局上报

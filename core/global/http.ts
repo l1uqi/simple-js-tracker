@@ -1,11 +1,13 @@
+import { ICustomOptions } from "../types/index";
 import {
   filterParams,
   urlIsLong,
   cConsole,
   getheatMap,
-} from "../utils/index.js";
+  getCache,
+} from "../utils/index";
 
-const xmlRequest = (url, params) => {
+const xmlRequest = (url: string, params: ICustomOptions) => {
   const xhr = new XMLHttpRequest();
   xhr.open("POST", url, false);
   xhr.setRequestHeader("Content-Type", "application/json");
@@ -13,9 +15,8 @@ const xmlRequest = (url, params) => {
   xhr.send(JSON.stringify(params));
 };
 
-// 后端目前不支持
-const sendBeacon = (url, params) => {
-  const data = new URLSearchParams(params);
+const sendBeacon = (url: string, params: any) => {
+  const data: any = new URLSearchParams(params);
   const headers = {
     type: "application/x-www-form-urlencoded",
   };
@@ -23,12 +24,15 @@ const sendBeacon = (url, params) => {
   navigator.sendBeacon(url, blob);
 };
 
-const report = function (url, method, data) {
+const report = function (url: string, method: string, data: ICustomOptions) {
   const params = filterParams(data);
   const str = Object.entries(data)
-    .map(([key, value]) => `${key}=${encodeURI(value)}`)
+    .map(
+      ([key, value]) =>
+        `${key}=${typeof value === "string" ? encodeURI(value) : value}`
+    )
     .join("&");
-  if (navigator.sendBeacon && method === "SEND_BEACON") {
+  if (navigator.sendBeacon !== undefined && method === "SEND_BEACON") {
     sendBeacon(url, params);
   } else if (method === "POST" || urlIsLong(str)) {
     xmlRequest(url, params);
@@ -51,12 +55,16 @@ export const sendTracker = (options, data) => {
   report(options.url, options.method, defaultData);
 };
 
-export const autoSendTracker = (options) => {
-  const params = JSON.parse(localStorage.getItem("fspace-tracker")) || null;
+export const autoSendTracker = (options: ICustomOptions) => {
+  const params = getCache("options");
   if (!params) return;
   const { url, enableHeatMap } = params;
   let position = "";
-  if (enableHeatMap && options.x && options.y) {
+  if (
+    enableHeatMap &&
+    typeof options.x === "number" &&
+    typeof options.y === "number"
+  ) {
     position = getheatMap(options.x, options.y);
     delete options.x;
     delete options.y;
