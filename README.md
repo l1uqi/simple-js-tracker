@@ -18,7 +18,7 @@ npm install simple-js-tracker
 yarn add simple-js-tracker
 
 // cdn 引用
-<script src="https://cdn.jsdelivr.net/npm/simple-js-tracker@0.0.6/lib/index.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-js-tracker@0.0.7/lib/index.min.js"></script>
 ```
 
 ## 初始化
@@ -26,7 +26,7 @@ yarn add simple-js-tracker
 ```js
 import SimpleJsTracker from "simple-js-tracker";
 
-const sjt = new SimpleJsTracker({
+const simpleJsTracker = new SimpleJsTracker({
   debug: true,
   url: "", // 服务地址
   enableHeatMap: true, // 开启热力图
@@ -87,7 +87,7 @@ npm publish
 
 ## 异常
 ```js
-const sjt = new SimpleJsTracker({
+const simpleJsTracker = new SimpleJsTracker({
   debug: true,
   url: "", // 服务地址
   enableHeatMap: true, // 开启热力图
@@ -97,7 +97,7 @@ const sjt = new SimpleJsTracker({
   }
 });
 
-sjt.registerErrorEvent({
+simpleJsTracker.registerErrorEvent({
   vm: Vue,// vue实例 vue环境下可传
   errorCallback: (error) => {
     // error : { 
@@ -114,7 +114,7 @@ sjt.registerErrorEvent({
 ```js
 import SimpleJsTracker from "simple-js-tracker";
 
-const sjt = new SimpleJsTracker({
+const simpleJsTracker = new SimpleJsTracker({
   debug: true,
   url: "", // 服务地址
   enableHeatMap: true, // 开启热力图
@@ -125,17 +125,17 @@ const sjt = new SimpleJsTracker({
 });
 
 // 更新传参
-sjt.setConfig(options);
+simpleJsTracker.setConfig(options);
 
 // 自定义上传
-sjt.sendTracker(params);
+simpleJsTracker.sendTracker(params);
 
 // 初始化自定义vue2/3指令
-sjt.initDirectives(Vue);
+simpleJsTracker.initDirectives(Vue);
 
 // 初始化 VueRouter 监听
 // 页面跳转监听， 上报的参数让用户自行提供 report
-sjt.registerVueRouterEvent(router, (res, report) => {
+simpleJsTracker.registerVueRouterEvent(router, (res, report) => {
    const { to, from, secound } = res;
    // 页面进入
   if(to.meta.tracking) {
@@ -167,3 +167,8 @@ sjt.registerVueRouterEvent(router, (res, report) => {
 - [ ] hash 页面监听实现
 - [ ] 全局上报
 - [ ] 异常捕获
+
+
+## 开源协议
+
+本项目基于 [MIT](https://zh.wikipedia.org/wiki/MIT%E8%A8%B1%E5%8F%AF%E8%AD%89)协议，请自由地享受和参与开源。

@@ -1,14 +1,15 @@
 {
   "name": "simple-js-tracker",
   "version": "0.0.7",
-  "description": "简单易用前端埋点",
+  "author": "liuqi",
+  "license": "MIT",
+  "description": "简单易用前端埋点SDK",
   "type": "module",
   "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c"
   },
-  "author": "liuqi",
   "jsdelivr": "lib/index.js",
   "devDependencies": {
     "@babel/core": "^7.19.6",
