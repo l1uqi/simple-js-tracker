@@ -13,6 +13,8 @@ export interface IDefaultOptions {
 
   enableHashTracker?: boolean,
 
+  enableVisibilitychange?: boolean
+
   [key: string]: boolean | string | object | null | undefined,
 };
 

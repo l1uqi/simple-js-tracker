@@ -39,23 +39,24 @@ const simpleJsTracker = new SimpleJsTracker({
 
 ## 参数
 
-| 参数          | 必填 | 默认值 | 类型   |                                  |
-| ------------- | ---- | ------ | ------ | -------------------------------- |
-| debug         | 否   | false  | bool   | 开启调试模式                     |
-| config        | 否   | object | {}     | 你的配置文件, 会在上报时传给后端 |
-| url           | 是   | ''     | string | 请求地址                         |
-| method        | 否   | img    | string | 请求方式 GET、POST、SEND_BEACON  |
-| enableHeatMap | 否   | false  | bool   | 开启坐标上传 position            |
+| 参数                   | 必填 | 默认值 | 类型   |                                                            |
+| ---------------------- | ---- | ------ | ------ | ---------------------------------------------------------- |
+| debug                  | 否   | false  | bool   | 开启调试模式                                               |
+| config                 | 否   | object | {}     | 你的配置文件, 会在上报时传给后端                           |
+| url                    | 是   | ''     | string | 请求地址                                                   |
+| method                 | 否   | img    | string | 请求方式 GET、POST、SEND_BEACON                            |
+| enableHeatMap          | 否   | false  | bool   | 开启坐标上传 position                                      |
+| enableVisibilitychange | 否   | false  | bool   | 开启页面可见监听, 如开启此功能 registerVueRouterEvent 传参可能为 null |
 
 ## 方法
 
-| 方法名                 | 说明                  | 参数                                                    |
-| ---------------------- | --------------------- | ------------------------------------------------------- |
-| setConfig              | 设置全局参数          | Options                                                 |
-| sendTracker            | 手动上报              | {自定义}                                                |
-| initDirectives         | 初始化 vue2 指令      | Vue                                                     |
-| registerVueRouterEvent | 初始化 VueRouter 监听 | VueRouter, callback({to, from , secound,...}, callback) |
-| registerErrorEvent | 全局异常报错 | vm: Vue对象, errorCallback((errorMsg, pageInfo) => {}) 异常回调 |
+| 方法名                 | 说明                  | 参数                                                             |
+| ---------------------- | --------------------- | ---------------------------------------------------------------- |
+| setConfig              | 设置全局参数          | Options                                                          |
+| sendTracker            | 手动上报              | {自定义}                                                         |
+| initDirectives         | 初始化 vue2 指令      | Vue                                                              |
+| registerVueRouterEvent | 初始化 VueRouter 监听 | VueRouter, callback({to, from , secound,...}, callback)          |
+| registerErrorEvent     | 全局异常报错          | vm: Vue 对象, errorCallback((errorMsg, pageInfo) => {}) 异常回调 |
 
 ## 指令
 
@@ -76,7 +77,6 @@ const simpleJsTracker = new SimpleJsTracker({
 <div v-track:keyup="{'event_type': 10, ...}">搜索</div>
 ```
 
-
 ## 打包
 
 ```
@@ -86,6 +86,7 @@ npm publish
 ```
 
 ## 异常
+
 ```js
 const simpleJsTracker = new SimpleJsTracker({
   debug: true,
@@ -100,7 +101,7 @@ const simpleJsTracker = new SimpleJsTracker({
 simpleJsTracker.registerErrorEvent({
   vm: Vue,// vue实例 vue环境下可传
   errorCallback: (error) => {
-    // error : { 
+    // error : {
     //   errorMsg, 异常信息
     //   pageInfo 当前页面信息
     // }
@@ -143,7 +144,7 @@ simpleJsTracker.registerVueRouterEvent(router, (res, report) => {
       'event_type': 5,
       ...to.meta.tracking,
     }
-    
+
     request(fromParams);
   }
   // 页面离开
@@ -158,7 +159,6 @@ simpleJsTracker.registerVueRouterEvent(router, (res, report) => {
 
 ```
 
-
 ## 待办
 
 - [x] 多种上报方式
@@ -167,7 +167,6 @@ simpleJsTracker.registerVueRouterEvent(router, (res, report) => {
 - [ ] hash 页面监听实现
 - [ ] 全局上报
 - [ ] 异常捕获
-
 
 ## 开源协议
 

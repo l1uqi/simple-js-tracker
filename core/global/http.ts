@@ -29,9 +29,7 @@ const report = function (url: string, method: string, data: ICustomOptions) {
   const params = filterParams(data);
   const str = Object.entries(data)
     .map(
-      ([key, value]) => {
-        `${key}=${typeof value === "string" ? encodeURI(value) : value}`
-      }
+      ([key, value]) => `${key}=${typeof value === "string" ? encodeURI(value) : value}`
     )
     .join("&");
   if (navigator.sendBeacon !== undefined && method === "SEND_BEACON") {
@@ -51,7 +49,7 @@ export const sendTracker = (options, data) => {
   };
 
   cConsole({
-    text: data,
+    text: defaultData,
     debug: options.debug,
   });
   report(options.url, options.method, defaultData);

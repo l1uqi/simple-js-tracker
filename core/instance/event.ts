@@ -19,10 +19,10 @@ export const initErrorEvent = async (options) => {
   // vue
   if (vm != null && vm.config) {
     vm.config.errorHandler = (error) => {
-      const pageInfo = getCache(LocalStoreEnum.PAGE_INFO)
+      const pageInfo = getCache(LocalStoreEnum.PAGE_INFO);
       errorCallback({
         errorMsg: error,
-        pageInfo: pageInfo
+        pageInfo: pageInfo,
       });
     };
   }
@@ -32,11 +32,11 @@ export const initErrorEvent = async (options) => {
    * @param line{Number}： 发生错误的代码行
    */
   window.onerror = (error, url, line) => {
-    const pageInfo = getCache(LocalStoreEnum.PAGE_INFO)
+    const pageInfo = getCache(LocalStoreEnum.PAGE_INFO);
     errorCallback({
       errorMsg: error,
       line: line,
-      pageInfo: pageInfo
+      pageInfo: pageInfo,
     });
     return true;
   };
@@ -47,7 +47,13 @@ export const setVueRouterEvent = (router, options, cb) => {
 
   if (!params) return;
 
-  router.beforeEach((to, from, next) => {
+  let currentPageInfo = null;
+
+  const reportCallback = (reportData) => {
+    autoSendTracker(reportData);
+  };
+
+  const getStopSecound = (to) => {
     const timestamp = new Date().getTime();
     const pretimestamp = getCache(LocalStoreEnum.PRE_TIMESTAMP) || timestamp;
     setCache(LocalStoreEnum.PRE_TIMESTAMP, timestamp);
@@ -60,15 +66,44 @@ export const setVueRouterEvent = (router, options, cb) => {
         debug: options.debug,
       });
     }
+    return secound;
+  };
+
+  if (options?.enableVisibilitychange) {
+    document.addEventListener("visibilitychange", function () {
+      const state = document.visibilityState;
+      let callbackData: any = null;
+      if (state === "hidden") {
+        const secound = getStopSecound(currentPageInfo);
+        callbackData = {
+          from: currentPageInfo,
+          to: null,
+          secound,
+        };
+      }
+      if (state === "visible") {
+        
+        callbackData = {
+          to: currentPageInfo,
+          from: null,
+          secound: 0,
+        };
+      }
+
+      cb(callbackData, reportCallback);
+    });
+  }
+
+  router.beforeEach((to, from, next) => {
+    currentPageInfo = to;
+    const secound = getStopSecound(to);
     cb(
       {
         to,
         from,
         secound,
       },
-      (reportData) => {
-        autoSendTracker(reportData);
-      }
+      reportCallback
     );
 
     next();

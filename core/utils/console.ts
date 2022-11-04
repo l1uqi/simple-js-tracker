@@ -22,6 +22,7 @@ export const initParamsConsole = async (params) => {
     url = "",
     method = "GET",
     enableHeatMap = false,
+    enableVisibilitychange = false
   } = params;
 
   let paramsInfo = [
@@ -39,6 +40,11 @@ export const initParamsConsole = async (params) => {
       key: "enableHeatMap",
       desc: "开启坐标上传 position",
       value: enableHeatMap,
+    },
+    {
+      key: "enableVisibilitychange",
+      desc: "页面可见监听",
+      value: enableVisibilitychange,
     },
     {
       key: "config",

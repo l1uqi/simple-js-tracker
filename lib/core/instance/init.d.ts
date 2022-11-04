@@ -1,1 +1,1 @@
-export declare function initMixin(FSTracker: any): void;
+export declare function initMixin(simpleJsTracker: any): void;

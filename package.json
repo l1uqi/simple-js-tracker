@@ -1,6 +1,6 @@
 {
   "name": "simple-js-tracker",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "author": "liuqi",
   "license": "MIT",
   "description": "简单易用前端埋点SDK",
@@ -9,6 +9,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c"
+  },
+  "files": [
+    "core/",
+    "lib/",
+    "package.json",
+    "README.md"
+  ],
+  "bugs": {
+    "url": "https://github.com/l1uqi/simple-js-tracker/issues"
   },
   "jsdelivr": "lib/index.js",
   "devDependencies": {
@@ -23,11 +32,6 @@
     "rollup-plugin-uglify": "^6.0.4",
     "typescript": "^4.8.4"
   },
-  "files": [
-    "lib/",
-    "package.json",
-    "README.md"
-  ],
   "dependencies": {
     "rollup-plugin-typescript2": "^0.34.1"
   }

@@ -1,6 +1,7 @@
+import SimpleJsTracker from ".";
 import { defaultOptions } from "../config";
 import { LocalStoreEnum } from "../enum";
-import { IDefaultOptions } from "../types/index";
+import { IDefaultOptions, ISimpleJsTracker } from "../types/index";
 import { setCache, initParamsConsole } from "../utils/index";
 import { initErrorEvent, initHashEvent } from "./event";
 
@@ -28,8 +29,8 @@ function _initError(options) {
 
 function _initDecorator() {}
 
-export function initMixin(FSTracker) {
-  FSTracker.prototype._init = function (options) {
+export function initMixin(simpleJsTracker ) {
+  simpleJsTracker.prototype._init = function (options) {
     const fs = this;
     if (options) {
       _setConfig(fs, options);
