@@ -1,8 +1,8 @@
 import SimpleJsTracker from ".";
 import { defaultOptions } from "../config";
-import { LocalStoreEnum } from "../enum";
+import { sessionStoreEnum } from "../enum";
 import { IDefaultOptions, ISimpleJsTracker } from "../types/index";
-import { setCache, initParamsConsole } from "../utils/index";
+import { setCache, initParamsConsole, GenNonDuplicateID } from "../utils/index";
 import { initErrorEvent, initHashEvent } from "./event";
 
 function _setConfig(fs, options: IDefaultOptions) {
@@ -13,7 +13,9 @@ function _setConfig(fs, options: IDefaultOptions) {
   }
   delete options["config"];
   fs._options = options;
-  setCache(LocalStoreEnum.OPSIONS, options);
+  const uuid = GenNonDuplicateID();
+  setCache(sessionStoreEnum.OPSIONS, options);
+  setCache(sessionStoreEnum.UUID, uuid);
 }
 
 function _initEvent(fs, options) {

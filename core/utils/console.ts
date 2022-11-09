@@ -2,7 +2,7 @@ import { IConcosle } from "../types/index";
 import { version } from "../../package.json";
 import { getPagePerformance, sleep } from "./basic";
 import { setCache } from "./cache";
-import { LocalStoreEnum } from "../enum";
+import { sessionStoreEnum } from "../enum";
 
 export function isValidKey(
   key: string | number | symbol,
@@ -14,7 +14,7 @@ export function isValidKey(
 export const initParamsConsole = async (params) => {
   await sleep(100);
   const PagePerformance = getPagePerformance();
-  setCache(LocalStoreEnum.PAGE_PERFORMANCE, PagePerformance);
+  setCache(sessionStoreEnum.PAGE_PERFORMANCE, PagePerformance);
   const { blankTime, analysisTime } = PagePerformance;
   const {
     config = {},

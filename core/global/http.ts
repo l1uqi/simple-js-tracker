@@ -1,4 +1,4 @@
-import { LocalStoreEnum } from "../enum";
+import { sessionStoreEnum } from "../enum";
 import { ICustomOptions } from "../types/index";
 import {
   filterParams,
@@ -56,7 +56,7 @@ export const sendTracker = (options, data) => {
 };
 
 export const autoSendTracker = (options: ICustomOptions) => {
-  const params = getCache(LocalStoreEnum.OPSIONS);
+  const params = getCache(sessionStoreEnum.OPSIONS);
   if (!params) return;
   const { url, enableHeatMap } = params;
   let position = "";
@@ -83,7 +83,7 @@ export const autoSendTracker = (options: ICustomOptions) => {
 
 
 export const autoSendErrorTracker = (options: ICustomOptions) => {
-  const params = getCache(LocalStoreEnum.OPSIONS);
+  const params = getCache(sessionStoreEnum.OPSIONS);
   if (!params) return;
   const { url, enableHeatMap } = params;
   const defaultData = {

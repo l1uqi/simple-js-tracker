@@ -1,14 +1,14 @@
 import { setTrackV2Directives } from "./directives_v2";
 import { initErrorEvent, setVueRouterEvent } from "../instance/event";
 import { sendTracker } from "./http";
-import { compareVersion, setCache } from "../utils/index";
+import { compareVersion, getCache, setCache } from "../utils/index";
 import { setTrackV3Directives } from "./directives_v3";
-import { LocalStoreEnum } from "../enum";
+import { sessionStoreEnum } from "../enum";
 
 export function initGlobalFun(FSTracker) {
   FSTracker.prototype.setConfig = function (options) {
     options = Object.assign({}, this._options, options);
-    setCache(LocalStoreEnum.OPSIONS, options);
+    setCache(sessionStoreEnum.OPSIONS, options);
   };
 
   FSTracker.prototype.sendTracker = function (data = {}) {
@@ -25,6 +25,10 @@ export function initGlobalFun(FSTracker) {
 
   FSTracker.prototype.registerVueRouterEvent = function (router, cb) {
     setVueRouterEvent(router, this._options, cb);
+  };
+
+  FSTracker.prototype.getUUID = function () {
+    return getCache(sessionStoreEnum.UUID);
   };
 
 

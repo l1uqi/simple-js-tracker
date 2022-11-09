@@ -145,7 +145,7 @@ simpleJsTracker.registerVueRouterEvent(router, (res, report) => {
       ...to.meta.tracking,
     }
 
-    request(fromParams);
+    report(fromParams);
   }
   // 页面离开
   if(from.meta.tracking) {
@@ -153,7 +153,7 @@ simpleJsTracker.registerVueRouterEvent(router, (res, report) => {
       'event_type': 6,
       ...from.meta.tracking,
     }
-    request(fromParams);
+    report(fromParams);
   }
 });
 
@@ -170,4 +170,4 @@ simpleJsTracker.registerVueRouterEvent(router, (res, report) => {
 
 ## 开源协议
 
-本项目基于 [MIT](https://zh.wikipedia.org/wiki/MIT%E8%A8%B1%E5%8F%AF%E8%AD%89)协议，请自由地享受和参与开源。
+[MIT](https://zh.wikipedia.org/wiki/MIT%E8%A8%B1%E5%8F%AF%E8%AD%89)

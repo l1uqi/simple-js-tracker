@@ -8,7 +8,7 @@ class Keyup {
       }
     });
   }
-  remove(entry: { el: any; binding?: any }) {
+  remove(entry: { el: Element; binding?: any }) {
     entry.el.removeEventListener("keyup", () => {});
   }
 }

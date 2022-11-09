@@ -1,9 +1,11 @@
 import Click from "../directives/click";
 import Keyup from "../directives/keyup";
+import Exposure from "../directives/exposure";
 
 // 实例化曝光和点击
 const cli = new Click();
 const keyup = new Keyup();
+const exposure = new Exposure();
 
 const track_v2 = {
   inserted: function (el: any, binding: { arg: any }) {
@@ -17,6 +19,9 @@ const track_v2 = {
 
         case "keyup":
           keyup.add({ el, binding });
+          break;
+        case "exposure":
+          exposure.add({ el, binding });
           break;
       }
     });
@@ -32,6 +37,10 @@ const track_v2 = {
 
         case "keyup":
           keyup.remove({ el, binding });
+          break;
+
+        case "exposure":
+          exposure.remove({ el, binding });
           break;
       }
     });

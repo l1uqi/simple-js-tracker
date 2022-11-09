@@ -2,7 +2,7 @@ const basicKey = "SIMPLE_JS_TRACKER";
 
 const hasItem = (key) => {
   const _key = basicKey + key;
-  if (localStorage.getItem(_key)) {
+  if (sessionStorage.getItem(_key)) {
     return true;
   } else {
     return false;
@@ -11,9 +11,13 @@ const hasItem = (key) => {
 
 export const getCache = (key) => {
   const _key = basicKey + key;
-  const cache = localStorage.getItem(_key);
+  const cache = sessionStorage.getItem(_key);
   if(cache) {
-    return JSON.parse(cache)
+    try {
+      return JSON.parse(cache)
+    } catch (error) {
+      return cache
+    }
   }
   return null;
 };
@@ -24,5 +28,5 @@ export const setCache = (key, value) => {
   if (typeof value !== 'string') {
     value = JSON.stringify(value)
   }
-  localStorage.setItem(_key, value);
+  sessionStorage.setItem(_key, value);
 };
