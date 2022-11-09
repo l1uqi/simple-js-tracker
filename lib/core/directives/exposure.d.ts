@@ -1,6 +1,9 @@
-declare class Keyup {
+declare class Exposure {
+    private observer;
+    private params;
+    init(): void;
     add(entry: {
-        el: any;
+        el: Element;
         binding: any;
     }): void;
     remove(entry: {
@@ -8,4 +11,4 @@ declare class Keyup {
         binding?: any;
     }): void;
 }
-export default Keyup;
+export default Exposure;

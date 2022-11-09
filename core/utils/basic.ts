@@ -30,6 +30,11 @@ export const urlIsLong = (url: string) => {
   return totalLength < 2000 ? false : true;
 };
 
+export const GenNonDuplicateID = () => {
+  let idStr = Date.now().toString(36)
+  idStr += Math.random().toString(36).substr(2)
+  return idStr
+}
 
 export const compareVersion = (version1: string, version2: string) => {
   const arr1 = version1.split('.')

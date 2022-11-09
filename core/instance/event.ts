@@ -6,7 +6,7 @@ import {
   sleep,
 } from "../utils/index.js";
 import { autoSendTracker } from "../global/http.js";
-import { LocalStoreEnum } from "../enum/localstore.js";
+import { sessionStoreEnum } from "../enum/sessionStore.js";
 
 export const initHashEvent = (fs, options) => {
   window.addEventListener("hashchange", (e) => {});
@@ -19,7 +19,7 @@ export const initErrorEvent = async (options) => {
   // vue
   if (vm != null && vm.config) {
     vm.config.errorHandler = (error) => {
-      const pageInfo = getCache(LocalStoreEnum.PAGE_INFO);
+      const pageInfo = getCache(sessionStoreEnum.PAGE_INFO);
       errorCallback({
         errorMsg: error,
         pageInfo: pageInfo,
@@ -32,7 +32,7 @@ export const initErrorEvent = async (options) => {
    * @param line{Number}： 发生错误的代码行
    */
   window.onerror = (error, url, line) => {
-    const pageInfo = getCache(LocalStoreEnum.PAGE_INFO);
+    const pageInfo = getCache(sessionStoreEnum.PAGE_INFO);
     errorCallback({
       errorMsg: error,
       line: line,
@@ -43,7 +43,7 @@ export const initErrorEvent = async (options) => {
 };
 
 export const setVueRouterEvent = (router, options, cb) => {
-  const params = getCache(LocalStoreEnum.OPSIONS);
+  const params = getCache(sessionStoreEnum.OPSIONS);
 
   if (!params) return;
 
@@ -55,9 +55,9 @@ export const setVueRouterEvent = (router, options, cb) => {
 
   const getStopSecound = (to) => {
     const timestamp = new Date().getTime();
-    const pretimestamp = getCache(LocalStoreEnum.PRE_TIMESTAMP) || timestamp;
-    setCache(LocalStoreEnum.PRE_TIMESTAMP, timestamp);
-    setCache(LocalStoreEnum.PAGE_INFO, JSON.stringify(to.meta));
+    const pretimestamp = getCache(sessionStoreEnum.PRE_TIMESTAMP) || timestamp;
+    setCache(sessionStoreEnum.PRE_TIMESTAMP, timestamp);
+    setCache(sessionStoreEnum.PAGE_INFO, JSON.stringify(to.meta));
     let secound = 0;
     if (timestamp != pretimestamp) {
       secound = (timestamp - pretimestamp) / 1000;
