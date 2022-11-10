@@ -1,10 +1,16 @@
-class interceptor {
+class Interceptor {
   private handlers;
   constructor() {
     this.handlers = [];
   }
 
-  add() {
-    
+  // params promise then resolve reject
+  use(fulfilled, rejected, options) {
+    this.handlers.push({
+      fulfilled,
+      rejected
+    });
   }
 }
+
+export default Interceptor;

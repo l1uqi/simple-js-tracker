@@ -43,16 +43,12 @@ const report = function (url: string, method: string, data: ICustomOptions) {
 };
 
 export const sendTracker = (options, data) => {
-  const defaultData = {
-    ...options,
-    ...data,
-  };
 
   cConsole({
-    text: defaultData,
+    text: data,
     debug: options.debug,
   });
-  report(options.url, options.method, defaultData);
+  report(options.url, options.method, data);
 };
 
 export const autoSendTracker = (options: ICustomOptions) => {

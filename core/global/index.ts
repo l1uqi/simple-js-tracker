@@ -12,15 +12,22 @@ export function initGlobalFun(SJTracker) {
     setCache(sessionStoreEnum.OPSIONS, options);
   };
 
+  // bus
+
   SJTracker.prototype.sendTracker = function (data = {}) {
-    sendTracker(this._options, data);
+    let reportData = Object.assign(Object.assign({}, this._options), data);
+    this.interceptors.sendTracker.handlers.forEach((interceptor) => {
+      const onFulfilled = interceptor.fulfilled;
+      reportData = onFulfilled(reportData);
+    });
+    sendTracker(this._options, reportData);
   };
 
   SJTracker.prototype.initDirectives = function (app) {
     if (app.version && compareVersion("3.0.0", app.version) > 0) {
-      setTrackV2Directives(app);
+      setTrackV2Directives.call(this, app);
     } else {
-      setTrackV3Directives(app);
+      setTrackV3Directives.call(this, app);
     }
   };
 
@@ -35,6 +42,4 @@ export function initGlobalFun(SJTracker) {
   SJTracker.prototype.registerErrorEvent = function (cb) {
     initErrorEvent(cb);
   };
-
-
 }

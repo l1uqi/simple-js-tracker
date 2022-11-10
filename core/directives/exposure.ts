@@ -1,6 +1,6 @@
-import { autoSendTracker } from "../global/http";
+import { autoSendTracker } from "../global/http"
 
-const attrName = 'exposure-data'
+const attrName = "exposure-data";
 
 class Exposure {
   private observer: IntersectionObserver | undefined;
@@ -9,10 +9,10 @@ class Exposure {
     return new IntersectionObserver((entries, observer) => {
       entries.forEach((item) => {
         if (item.isIntersecting) {
-          const el: Element = item.target
+          const el: Element = item.target;
           observer!.unobserve(el);
           const arrtString = el.getAttribute(attrName) || null;
-          if(!arrtString) return
+          if (!arrtString) return;
           const params = JSON.parse(arrtString);
           // 上报
           autoSendTracker({
@@ -23,7 +23,12 @@ class Exposure {
     });
   }
   add(entry: { el: Element; binding: any }) {
-    entry.el.setAttribute(attrName, typeof entry.binding.value === 'string' ? entry.binding.value : JSON.stringify(entry.binding.value))
+    entry.el.setAttribute(
+      attrName,
+      typeof entry.binding.value === "string"
+        ? entry.binding.value
+        : JSON.stringify(entry.binding.value)
+    );
     if (this.observer === undefined) {
       this.observer = this.init();
     }
