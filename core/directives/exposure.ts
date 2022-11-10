@@ -1,30 +1,33 @@
 import { autoSendTracker } from "../global/http";
 
+const attrName = 'exposure-data'
+
 class Exposure {
   private observer: IntersectionObserver | undefined;
 
-  private params: Object = {};
-
   init() {
-    this.observer = new IntersectionObserver((entries, observer) => {
+    return new IntersectionObserver((entries, observer) => {
       entries.forEach((item) => {
         if (item.isIntersecting) {
-          observer!.unobserve(item.target);
+          const el: Element = item.target
+          observer!.unobserve(el);
+          const arrtString = el.getAttribute(attrName) || null;
+          if(!arrtString) return
+          const params = JSON.parse(arrtString);
           // 上报
           autoSendTracker({
-            ...this.params,
+            ...params,
           });
         }
       });
     });
   }
   add(entry: { el: Element; binding: any }) {
-    this.params = entry.binding.value;
-    if (!this.observer) {
-      this.init();
-    } else {
-      this.observer.observe(entry.el);
+    entry.el.setAttribute(attrName, typeof entry.binding.value === 'string' ? entry.binding.value : JSON.stringify(entry.binding.value))
+    if (this.observer === undefined) {
+      this.observer = this.init();
     }
+    this.observer.observe(entry.el);
   }
   remove(entry: { el: Element; binding?: any }) {
     this.observer?.unobserve(entry.el);

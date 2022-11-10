@@ -1,6 +1,6 @@
 {
   "name": "simple-js-tracker",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "liuqi",
   "license": "MIT",
   "description": "简单易用前端埋点SDK",

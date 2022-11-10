@@ -29,6 +29,6 @@ export default {
       exclude: "node_modules/**",
     }),
     json(),
-    // uglify()
+    uglify()
   ],
 };

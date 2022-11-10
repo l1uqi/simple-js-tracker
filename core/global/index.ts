@@ -31,7 +31,6 @@ export function initGlobalFun(FSTracker) {
     return getCache(sessionStoreEnum.UUID);
   };
 
-
   FSTracker.prototype.registerErrorEvent = function (cb) {
     initErrorEvent(cb);
   };
