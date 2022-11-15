@@ -8,9 +8,10 @@ import {
   getCache,
 } from "../utils/index";
 
-const xmlRequest = (url: string, params: ICustomOptions) => {
+const xmlRequest = (url: string, params: ICustomOptions, timeout: number) => {
   const xhr = new XMLHttpRequest();
   xhr.open("POST", url, false);
+  xhr.timeout = timeout;
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
   xhr.send(JSON.stringify(params));
@@ -26,7 +27,10 @@ const sendBeacon = (url: string, params: any) => {
 };
 
 const report = function (url: string, method: string, data: ICustomOptions) {
+  const timeout = Number(data.timeout);
+
   const params = filterParams(data);
+  
   const str = Object.entries(data)
     .map(
       ([key, value]) => `${key}=${typeof value === "string" ? encodeURI(value) : value}`
@@ -35,20 +39,27 @@ const report = function (url: string, method: string, data: ICustomOptions) {
   if (navigator.sendBeacon !== undefined && method === "SEND_BEACON") {
     sendBeacon(url, params);
   } else if (method === "POST" || urlIsLong(str)) {
-    xmlRequest(url, params);
+    xmlRequest(url, params, timeout);
   } else {
     const img = new Image();
     img.src = `${url}?${str}`;
+    setTimeout(() => {
+      img.src = ''
+    }, timeout);
   }
 };
 
 export const sendTracker = (options, data) => {
-
+  const params = getCache(sessionStoreEnum.OPSIONS);
   cConsole({
     text: data,
     debug: options.debug,
   });
-  report(options.url, options.method, data);
+  const defaultData = {
+    ...params,
+    ...data,
+  };
+  report(options.url, options.method, defaultData);
 };
 
 export const autoSendTracker = (options: ICustomOptions) => {

@@ -49,7 +49,6 @@ const track_v2 = {
 
 export function setTrackV2Directives(app) {
   // @ts-ignore
-  console.log(this);
   app.directive("track", track_v2);
 }
 

@@ -39,13 +39,14 @@ const simpleJsTracker = new SimpleJsTracker({
 
 ## 参数
 
-| 参数                   | 必填 | 默认值 | 类型   |                                                            |
-| ---------------------- | ---- | ------ | ------ | ---------------------------------------------------------- |
-| debug                  | 否   | false  | bool   | 开启调试模式                                               |
-| config                 | 否   | object | {}     | 你的配置文件, 会在上报时传给后端                           |
-| url                    | 是   | ''     | string | 请求地址                                                   |
-| method                 | 否   | img    | string | 请求方式 GET、POST、SEND_BEACON                            |
-| enableHeatMap          | 否   | false  | bool   | 开启坐标上传 position                                      |
+| 参数                   | 必填 | 默认值 | 类型   |                                                                       |
+| ---------------------- | ---- | ------ | ------ | --------------------------------------------------------------------- |
+| debug                  | 否   | false  | bool   | 开启调试模式                                                          |
+| config                 | 否   | object | {}     | 你的配置文件, 会在上报时传给后端                                      |
+| url                    | 是   | ''     | string | 请求地址                                                              |
+| timeout                 | 否   | 1000 | {}     | 请求超时时间                                |
+| method                 | 否   | img    | string | 请求方式 GET、POST、SEND_BEACON                                       |
+| enableHeatMap          | 否   | false  | bool   | 开启坐标上传 position                                                 |
 | enableVisibilitychange | 否   | false  | bool   | 开启页面可见监听, 如开启此功能 registerVueRouterEvent 传参可能为 null |
 
 ## 方法
@@ -55,6 +56,7 @@ const simpleJsTracker = new SimpleJsTracker({
 | setConfig              | 设置全局参数          | Options                                                          |
 | sendTracker            | 手动上报              | {自定义}                                                         |
 | initDirectives         | 初始化 vue2 指令      | Vue                                                              |
+| interceptors           | 上传拦截器            | interceptors.use(fun, fun)                                       |
 | registerVueRouterEvent | 初始化 VueRouter 监听 | VueRouter, callback({to, from , secound,...}, callback)          |
 | registerErrorEvent     | 全局异常报错          | vm: Vue 对象, errorCallback((errorMsg, pageInfo) => {}) 异常回调 |
 
@@ -133,6 +135,15 @@ simpleJsTracker.sendTracker(params);
 
 // 初始化自定义vue2/3指令
 simpleJsTracker.initDirectives(Vue);
+
+// 手动上报前拦截器
+simpleJsTracker.interceptors.sendTracker.use(
+    (config) => {
+      // ... 上报传参
+      return config;
+    },
+    (error) => {}
+  );
 
 // 初始化 VueRouter 监听
 // 页面跳转监听， 上报的参数让用户自行提供 report

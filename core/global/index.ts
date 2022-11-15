@@ -12,8 +12,6 @@ export function initGlobalFun(SJTracker) {
     setCache(sessionStoreEnum.OPSIONS, options);
   };
 
-  // bus
-
   SJTracker.prototype.sendTracker = function (data = {}) {
     let reportData = Object.assign(Object.assign({}, this._options), data);
     this.interceptors.sendTracker.handlers.forEach((interceptor) => {

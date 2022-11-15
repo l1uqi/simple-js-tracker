@@ -15,10 +15,12 @@ export interface IDefaultOptions {
 
   enableVisibilitychange?: boolean
 
-  [key: string]: boolean | string | object | null | undefined,
+  timeout?: number
+
+  [key: string]: boolean | string | number | object | null | undefined,
 };
 
 
 export interface ICustomOptions {
-  [key: string]: boolean | string | object | null | undefined,
+  [key: string]: boolean | string | number | object | null | undefined ,
 }

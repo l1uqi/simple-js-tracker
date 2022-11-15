@@ -13,5 +13,7 @@ export const defaultOptions: IDefaultOptions = {
 
   enableHeatMap: false,
 
-  enableHashTracker: false
+  enableHashTracker: false,
+
+  timeout: 1000
 }
