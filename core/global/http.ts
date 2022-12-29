@@ -9,12 +9,27 @@ import {
 } from "../utils/index";
 
 const xmlRequest = (url: string, params: ICustomOptions, timeout: number) => {
-  const xhr = new XMLHttpRequest();
-  xhr.open("POST", url, false);
-  xhr.timeout = timeout;
-  xhr.setRequestHeader("Content-Type", "application/json");
-  xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
-  xhr.send(JSON.stringify(params));
+  try {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url, false);
+    var timedout = false;
+    var timer = setTimeout(function () {
+      timedout = true;
+      xhr.abort();
+  }, timeout);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState !== 4)
+          return;
+      if (timedout)
+          return;
+      clearTimeout(timer);
+  };
+    xhr.send(JSON.stringify(params));
+  } catch (error) {
+      console.log(error);
+  }
 };
 
 const sendBeacon = (url: string, params: any) => {
@@ -36,6 +51,7 @@ const report = function (url: string, method: string, data: ICustomOptions) {
       ([key, value]) => `${key}=${typeof value === "string" ? encodeURI(value) : value}`
     )
     .join("&");
+    debugger
   if (navigator.sendBeacon !== undefined && method === "SEND_BEACON") {
     sendBeacon(url, params);
   } else if (method === "POST" || urlIsLong(str)) {

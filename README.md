@@ -18,7 +18,7 @@ npm install simple-js-tracker
 yarn add simple-js-tracker
 
 // cdn 引用
-<script src="https://cdn.jsdelivr.net/npm/simple-js-tracker@0.0.7/lib/index.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-js-tracker@0.1.5/lib/index.min.js"></script>
 ```
 
 ## 初始化
